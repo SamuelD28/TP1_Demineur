@@ -23,8 +23,9 @@ public class DemineurActivity extends AppCompatActivity {
     private TableLayout tableauDemineur;
     private ArrayList<Mine> listeMine;
     private Button boutonReset;
-    private final int dimensionXTableau = 9;
-    private final int dimensionYTableau = 9;
+    private final int dimensionXTableau = 10;
+    private final int dimensionYTableau = 10;
+    private final int nombreMines = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void GenererMines()
     {
-        for(int i =0 ; i < 5; i++)
+        for(int i =0 ; i < nombreMines; i++)
         {
             int randomX = new Random().nextInt(dimensionXTableau - 2) +1 ;
             int randomY = new Random().nextInt(dimensionXTableau - 2) +1 ;
@@ -115,19 +116,19 @@ public class DemineurActivity extends AppCompatActivity {
         {
             int mineX = mine.getPositionX();
             int mineY = mine.getPositionY();
-            tempTableau[mineX][mineY] = -1;
+            tempTableau[mineX][mineY] = -1000;
 
-            tempTableau[mineX+ 1][mineY] = (tempTableau[mineX+ 1][mineY]  != -1)? tempTableau[mineX+ 1][mineY] + 1 : -1;
-            tempTableau[mineX + 1][mineY + 1] = (tempTableau[mineX + 1][mineY + 1]  != -1)? tempTableau[mineX + 1][mineY + 1] + 1: -1;
-            tempTableau[mineX][mineY + 1] = (tempTableau[mineX][mineY + 1] != -1)? tempTableau[mineX][mineY + 1] + 1: -1;
-            tempTableau[mineX + 1][mineY - 1] = (tempTableau[mineX + 1][mineY - 1]  != -1)? tempTableau[mineX + 1][mineY - 1] + 1: -1;
-            tempTableau[mineX - 1][mineY + 1] = (tempTableau[mineX - 1][mineY + 1]  != -1)? tempTableau[mineX - 1][mineY + 1] + 1: -1;
-            tempTableau[mineX - 1][mineY] = (tempTableau[mineX - 1][mineY] != -1)? tempTableau[mineX - 1][mineY] + 1: -1;
-            tempTableau[mineX - 1][mineY - 1] = (tempTableau[mineX - 1][mineY - 1]   != -1)? tempTableau[mineX - 1][mineY - 1]  + 1: -1;
-            tempTableau[mineX][mineY - 1] = ( tempTableau[mineX][mineY - 1]  != -1)? tempTableau[mineX][mineY - 1] + 1: -1;
+
+            tempTableau[mineX+ 1][mineY] =  tempTableau[mineX+ 1][mineY] + 1;
+            tempTableau[mineX + 1][mineY + 1] = tempTableau[mineX + 1][mineY + 1] + 1;
+            tempTableau[mineX][mineY + 1] = tempTableau[mineX][mineY + 1] + 1;
+            tempTableau[mineX + 1][mineY - 1] = tempTableau[mineX + 1][mineY - 1] + 1;
+            tempTableau[mineX - 1][mineY + 1] = tempTableau[mineX - 1][mineY + 1] + 1;
+            tempTableau[mineX - 1][mineY] = tempTableau[mineX - 1][mineY] + 1;
+            tempTableau[mineX - 1][mineY - 1] = tempTableau[mineX - 1][mineY - 1]  + 1;
+            tempTableau[mineX][mineY - 1] =  tempTableau[mineX][mineY - 1] + 1;
         }
 
-        int COMPTEUR =0;
         for (int y = 1; y <= dimensionYTableau; y++) {
             TableRow rangee = new TableRow(this);
 
@@ -135,22 +136,23 @@ public class DemineurActivity extends AppCompatActivity {
             for (int x = 1; x <= dimensionXTableau; x++) {
                 Button bouton = new Button(this);
                 bouton.setText(String.valueOf(tempTableau[x][y]));
+                bouton.setTextColor(Color.parseColor("#ffffff"));
 
                 bouton.setOnLongClickListener(new onLongDrapeau(bouton));
 
                 if(tempTableau[x][y] == -1)
                 {
-                    COMPTEUR ++;
+                    bouton.setText("M");
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
                 }
                 else if(tempTableau[x][y] == 1)
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
                 else if(tempTableau[x][y] == 2)
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
-                else if(tempTableau[x][y] == 3)
+                else if(tempTableau[x][y] >= 3)
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
-                rangee.addView(bouton , width / 9, height/9);
+                rangee.addView(bouton , width / dimensionXTableau, height/dimensionYTableau);
             }
             tableauDemineur.addView(rangee);
         }
