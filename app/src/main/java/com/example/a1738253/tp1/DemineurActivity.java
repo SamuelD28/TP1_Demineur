@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,6 +22,9 @@ public class DemineurActivity extends AppCompatActivity {
 
     private TableLayout tableauDemineur;
     private ArrayList<Mine> listeMine;
+    private Button boutonReset;
+    private final int dimensionXTableau = 9;
+    private final int dimensionYTableau = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +33,27 @@ public class DemineurActivity extends AppCompatActivity {
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
+
+        boutonReset = findViewById(R.id.btnReset);
+        boutonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DemarerPartie();
+            }
+        });
     }
 
     //On utilise cette methode pour pouvoir obtenir la hauteur et la largeur du tableau.
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        DemarerPartie();
+    }
+
+    private void DemarerPartie()
+    {
+        tableauDemineur.removeAllViews();
+        listeMine.clear();
         GenererMines();
         GenererTableau(tableauDemineur.getHeight(), tableauDemineur.getWidth());
     }
@@ -43,8 +62,17 @@ public class DemineurActivity extends AppCompatActivity {
     {
         for(int i =0 ; i < 5; i++)
         {
-            int randomX = new Random().nextInt(8);
-            int randomY = new Random().nextInt(8);
+            int randomX = new Random().nextInt(dimensionXTableau - 2) +1 ;
+            int randomY = new Random().nextInt(dimensionXTableau - 2) +1 ;
+
+            for(Mine mine : listeMine)
+            {
+                if(mine.getPositionX() == randomX && mine.getPositionY() == randomY)
+                {
+                    randomX++;
+                    randomY ++;
+                }
+            }
 
             Mine mine = new Mine(this, randomX, randomY);
             listeMine.add(mine);
@@ -53,54 +81,46 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void GenererTableau(int height, int width)
     {
-        String[][] tempTableau = new String[9][9];
+        int[][] tempTableau = new int[dimensionXTableau + 2][dimensionYTableau + 2];
 
         for(Mine mine : listeMine)
         {
-            tempTableau[mine.getPositionX()][mine.getPositionY()] = "Mine";
+            int mineX = mine.getPositionX();
+            int mineY = mine.getPositionY();
+            tempTableau[mineX][mineY] = -1;
 
-            if(mine.getPositionX() < 9)
-                tempTableau[mine.getPositionX()+ 1][mine.getPositionY()] = (tempTableau[mine.getPositionX()+ 1][mine.getPositionY()]  != "Mine")? "1": "Mine";
-            if(mine.getPositionY() < 9 && mine.getPositionX() < 9)
-                tempTableau[mine.getPositionX() + 1][mine.getPositionY() + 1] = (tempTableau[mine.getPositionX() + 1][mine.getPositionY() + 1]  != "Mine")? "1": "Mine";
-            if(mine.getPositionY() < 9)
-                tempTableau[mine.getPositionX()][mine.getPositionY() + 1] = (tempTableau[mine.getPositionX()][mine.getPositionY() + 1] != "Mine")? "1": "Mine";
-            if(mine.getPositionX() < 9 && mine.getPositionY() > 0)
-                tempTableau[mine.getPositionX() + 1][mine.getPositionY() - 1] = (tempTableau[mine.getPositionX() + 1][mine.getPositionY() - 1]  != "Mine")? "1": "Mine";
-            if(mine.getPositionX() > 0 && mine.getPositionY() < 9)
-                tempTableau[mine.getPositionX() - 1][mine.getPositionY() + 1] = (tempTableau[mine.getPositionX() - 1][mine.getPositionY() + 1]  != "Mine")? "1": "Mine";
-            if(mine.getPositionX() > 0)
-                tempTableau[mine.getPositionX() - 1][mine.getPositionY()] = (tempTableau[mine.getPositionX() - 1][mine.getPositionY()] != "Mine")? "1": "Mine";
-            if(mine.getPositionX() > 0 && mine.getPositionY() > 0)
-                tempTableau[mine.getPositionX() - 1][mine.getPositionY() - 1] = (tempTableau[mine.getPositionX() - 1][mine.getPositionY() - 1]   != "Mine")? "1": "Mine";
-            if(mine.getPositionY() > 0)
-                tempTableau[mine.getPositionX()][mine.getPositionY() - 1] = ( tempTableau[mine.getPositionX()][mine.getPositionY() - 1]  != "Mine")? "1": "Mine";
-
+            tempTableau[mineX+ 1][mineY] = (tempTableau[mineX+ 1][mineY]  != -1)? tempTableau[mineX+ 1][mineY] + 1 : -1;
+            tempTableau[mineX + 1][mineY + 1] = (tempTableau[mineX + 1][mineY + 1]  != -1)? tempTableau[mineX + 1][mineY + 1] + 1: -1;
+            tempTableau[mineX][mineY + 1] = (tempTableau[mineX][mineY + 1] != -1)? tempTableau[mineX][mineY + 1] + 1: -1;
+            tempTableau[mineX + 1][mineY - 1] = (tempTableau[mineX + 1][mineY - 1]  != -1)? tempTableau[mineX + 1][mineY - 1] + 1: -1;
+            tempTableau[mineX - 1][mineY + 1] = (tempTableau[mineX - 1][mineY + 1]  != -1)? tempTableau[mineX - 1][mineY + 1] + 1: -1;
+            tempTableau[mineX - 1][mineY] = (tempTableau[mineX - 1][mineY] != -1)? tempTableau[mineX - 1][mineY] + 1: -1;
+            tempTableau[mineX - 1][mineY - 1] = (tempTableau[mineX - 1][mineY - 1]   != -1)? tempTableau[mineX - 1][mineY - 1]  + 1: -1;
+            tempTableau[mineX][mineY - 1] = ( tempTableau[mineX][mineY - 1]  != -1)? tempTableau[mineX][mineY - 1] + 1: -1;
         }
 
-        for (int y = 0; y < 9; y++) {
+        int COMPTEUR =0;
+        for (int y = 1; y <= dimensionYTableau; y++) {
             TableRow rangee = new TableRow(this);
 
-            for (int x = 0; x < 9; x++) {
-                if(tempTableau[x][y] == null)
+
+            for (int x = 1; x <= dimensionXTableau; x++) {
+                Button bouton = new Button(this);
+                bouton.setText(String.valueOf(tempTableau[x][y]));
+
+                if(tempTableau[x][y] == -1)
                 {
-                    Button bouton = new Button(this);
-                    bouton.setText("0");
-                    rangee.addView(bouton , width / 9, height/9);
+                    COMPTEUR ++;
+                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
                 }
-                else if(tempTableau[x][y] == "1")
-                {
-                    Button bouton = new Button(this);
-                    bouton.setText("1");
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.colorAccent));
-                    rangee.addView(bouton, width / 9, height/9);
-                }
-                else if(tempTableau[x][y] == "Mine"){
-                    Button bouton = new Button(this);
-                    bouton.setText("M");
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-                    rangee.addView(bouton, width / 9, height/9);
-                }
+                else if(tempTableau[x][y] == 1)
+                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
+                else if(tempTableau[x][y] == 2)
+                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
+                else if(tempTableau[x][y] == 3)
+                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
+
+                rangee.addView(bouton , width / 9, height/9);
             }
             tableauDemineur.addView(rangee);
         }

@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="IndianRed">#CD5C5C</color>
+    <color name="Crimson">#DC143C</color>
+    <color name="LightCoral">#F08080</color>
+    <color name="Salmon">#FA8072</color>
+    <color name="DarkSalmon">#E9967A</color>
+    <color name="LightSalmon">#FFA07A</color>
+    <color name="DarkSeaGreen">#8FBC8B</color>
+    <color name="SteelBlue">#4682B4</color>
+    <color name="LightBlue">#EDEDED</color>
 </resources>

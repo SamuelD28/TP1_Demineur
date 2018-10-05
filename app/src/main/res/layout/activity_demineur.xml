@@ -4,22 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DemineurActivity">
+    tools:context=".DemineurActivity"
+    tools:layout_editor_absoluteY="81dp">
 
 
     <TableLayout
         android:id="@+id/tableauDemineur"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        android:background="@color/LightBlue"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/LightBlue"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableauDemineur">
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/DarkSeaGreen"
+            android:drawableLeft="@android:drawable/stat_notify_sync"
+            android:text="@string/btn_Reset"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnDimension"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/SteelBlue"
+            android:drawableLeft="@android:drawable/ic_dialog_dialer"
+            android:text="9 x 9"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnMine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/IndianRed"
+            android:drawableLeft="@android:drawable/ic_menu_mylocation"
+            android:text="5"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

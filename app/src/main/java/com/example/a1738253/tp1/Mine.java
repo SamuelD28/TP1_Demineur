@@ -2,6 +2,8 @@ package com.example.a1738253.tp1;
 
 import android.content.Context;
 
+import java.util.Random;
+
 public class Mine extends android.support.v7.widget.AppCompatButton{
 
     private int positionX;
@@ -11,12 +13,12 @@ public class Mine extends android.support.v7.widget.AppCompatButton{
     public Mine(Context context, int x, int y)
     {
         super(context);
-        this.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-        this.setText("1");
         estDesarmer = false;
         positionX = x;
         positionY = y;
     }
+
+
 
     public boolean isEstDesarmer() {
         return estDesarmer;

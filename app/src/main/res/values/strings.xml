@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TP1</string>
+    <string name="name">Demineur</string>
+    <string name="btn_Reset">Reset</string>
 </resources>
