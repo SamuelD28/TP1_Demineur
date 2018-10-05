@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -23,9 +24,9 @@ public class DemineurActivity extends AppCompatActivity {
     private TableLayout tableauDemineur;
     private ArrayList<Mine> listeMine;
     private Button boutonReset;
-    private final int dimensionXTableau = 9;
-    private final int dimensionYTableau = 9;
-    private final int nombreMines = 5;
+    private final int dimensionXTableau = 10;
+    private final int dimensionYTableau = 10;
+    private final int nombreMines = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +105,12 @@ public class DemineurActivity extends AppCompatActivity {
         for (int y = 1; y <= dimensionYTableau; y++) {
             TableRow rangee = new TableRow(this);
 
-
             for (int x = 1; x <= dimensionXTableau; x++) {
+
+
                 Button bouton = new Button(this);
                 bouton.setText(String.valueOf(tempTableau[x][y]));
+                bouton.setTextColor(Color.parseColor("#ffffff"));
 
                 if(tempTableau[x][y] < 0)
                 {
@@ -118,10 +121,10 @@ public class DemineurActivity extends AppCompatActivity {
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
                 else if(tempTableau[x][y] == 2)
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
-                else if(tempTableau[x][y] == 3)
+                else if(tempTableau[x][y] >= 3)
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
-                rangee.addView(bouton , width / 9, height/9);
+                rangee.addView(bouton , width / dimensionXTableau, height/dimensionYTableau);
             }
             tableauDemineur.addView(rangee);
         }
