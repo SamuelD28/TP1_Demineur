@@ -25,6 +25,7 @@ public class DemineurActivity extends AppCompatActivity {
     private Button boutonReset;
     private final int dimensionXTableau = 9;
     private final int dimensionYTableau = 9;
+    private final int nombreMines = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void GenererMines()
     {
-        for(int i =0 ; i < 5; i++)
+        for(int i =0 ; i < nombreMines; i++)
         {
             int randomX = new Random().nextInt(dimensionXTableau - 2) +1 ;
             int randomY = new Random().nextInt(dimensionXTableau - 2) +1 ;
@@ -87,19 +88,19 @@ public class DemineurActivity extends AppCompatActivity {
         {
             int mineX = mine.getPositionX();
             int mineY = mine.getPositionY();
-            tempTableau[mineX][mineY] = -1;
+            tempTableau[mineX][mineY] = -1000;
 
-            tempTableau[mineX+ 1][mineY] = (tempTableau[mineX+ 1][mineY]  != -1)? tempTableau[mineX+ 1][mineY] + 1 : -1;
-            tempTableau[mineX + 1][mineY + 1] = (tempTableau[mineX + 1][mineY + 1]  != -1)? tempTableau[mineX + 1][mineY + 1] + 1: -1;
-            tempTableau[mineX][mineY + 1] = (tempTableau[mineX][mineY + 1] != -1)? tempTableau[mineX][mineY + 1] + 1: -1;
-            tempTableau[mineX + 1][mineY - 1] = (tempTableau[mineX + 1][mineY - 1]  != -1)? tempTableau[mineX + 1][mineY - 1] + 1: -1;
-            tempTableau[mineX - 1][mineY + 1] = (tempTableau[mineX - 1][mineY + 1]  != -1)? tempTableau[mineX - 1][mineY + 1] + 1: -1;
-            tempTableau[mineX - 1][mineY] = (tempTableau[mineX - 1][mineY] != -1)? tempTableau[mineX - 1][mineY] + 1: -1;
-            tempTableau[mineX - 1][mineY - 1] = (tempTableau[mineX - 1][mineY - 1]   != -1)? tempTableau[mineX - 1][mineY - 1]  + 1: -1;
-            tempTableau[mineX][mineY - 1] = ( tempTableau[mineX][mineY - 1]  != -1)? tempTableau[mineX][mineY - 1] + 1: -1;
+
+            tempTableau[mineX+ 1][mineY] =  tempTableau[mineX+ 1][mineY] + 1;
+            tempTableau[mineX + 1][mineY + 1] = tempTableau[mineX + 1][mineY + 1] + 1;
+            tempTableau[mineX][mineY + 1] = tempTableau[mineX][mineY + 1] + 1;
+            tempTableau[mineX + 1][mineY - 1] = tempTableau[mineX + 1][mineY - 1] + 1;
+            tempTableau[mineX - 1][mineY + 1] = tempTableau[mineX - 1][mineY + 1] + 1;
+            tempTableau[mineX - 1][mineY] = tempTableau[mineX - 1][mineY] + 1;
+            tempTableau[mineX - 1][mineY - 1] = tempTableau[mineX - 1][mineY - 1]  + 1;
+            tempTableau[mineX][mineY - 1] =  tempTableau[mineX][mineY - 1] + 1;
         }
 
-        int COMPTEUR =0;
         for (int y = 1; y <= dimensionYTableau; y++) {
             TableRow rangee = new TableRow(this);
 
@@ -108,9 +109,9 @@ public class DemineurActivity extends AppCompatActivity {
                 Button bouton = new Button(this);
                 bouton.setText(String.valueOf(tempTableau[x][y]));
 
-                if(tempTableau[x][y] == -1)
+                if(tempTableau[x][y] < 0)
                 {
-                    COMPTEUR ++;
+                    bouton.setText("M");
                     bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
                 }
                 else if(tempTableau[x][y] == 1)
