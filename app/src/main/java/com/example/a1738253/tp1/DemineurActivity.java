@@ -2,29 +2,27 @@ package com.example.a1738253.tp1;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
+import java.util.Timer;
 
 public class DemineurActivity extends AppCompatActivity {
 
     private TableLayout tableauDemineur;
     private ArrayList<Mine> listeMine;
     private Button boutonReset;
-    private final int dimensionXTableau = 10;
-    private final int dimensionYTableau = 10;
+    private TextView textCountown;
+    private CountDownTimer countdown;
+    private final int dimensionXTableau = 8;
+    private final int dimensionYTableau = 8;
     private final int nombreMines = 7;
 
     @Override
@@ -34,7 +32,18 @@ public class DemineurActivity extends AppCompatActivity {
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
+        textCountown = findViewById(R.id.textCountdown);
+        countdown = new CountDownTimer(200000, 1000){
+            @Override
+            public void onTick(long l) {
+                textCountown.setText("Time left : " + String.valueOf(l / 1000)+ " s");
+            }
 
+            @Override
+            public void onFinish() {
+                textCountown.setText("Game Over");
+            }
+        };
         boutonReset = findViewById(R.id.btnReset);
         boutonReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,20 +54,15 @@ public class DemineurActivity extends AppCompatActivity {
     }
 
     private class onLongDrapeau implements View.OnLongClickListener{
-
         private Button mBouton;
-
         public onLongDrapeau(Button bouton){
             mBouton = bouton;
         }
-
-
         @Override
         public boolean onLongClick(View v) {
             boutonLongClick();
             return true;
         }
-
         private void boutonLongClick(){
 
             if (mBouton.getText() == "D"){
@@ -70,8 +74,6 @@ public class DemineurActivity extends AppCompatActivity {
         }
     }
 
-
-
     //On utilise cette methode pour pouvoir obtenir la hauteur et la largeur du tableau.
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -81,6 +83,8 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void DemarerPartie()
     {
+        countdown.cancel();
+        countdown.start();
         tableauDemineur.removeAllViews();
         listeMine.clear();
         GenererMines();
@@ -93,6 +97,7 @@ public class DemineurActivity extends AppCompatActivity {
         {
             int randomX = new Random().nextInt(dimensionXTableau - 2) +1 ;
             int randomY = new Random().nextInt(dimensionXTableau - 2) +1 ;
+
 
             for(Mine mine : listeMine)
             {
@@ -134,25 +139,15 @@ public class DemineurActivity extends AppCompatActivity {
 
 
             for (int x = 1; x <= dimensionXTableau; x++) {
-                Button bouton = new Button(this);
-                bouton.setText(String.valueOf(tempTableau[x][y]));
-                bouton.setTextColor(Color.parseColor("#ffffff"));
-
-                bouton.setOnLongClickListener(new onLongDrapeau(bouton));
-
-                if(tempTableau[x][y] == -1)
+                if(tempTableau[x][y] < 0)
                 {
-                    bouton.setText("M");
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
+                    Mine mine = new Mine(this, x , y);
+                    rangee.addView(mine , width / dimensionXTableau, height/dimensionYTableau);
                 }
-                else if(tempTableau[x][y] == 1)
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
-                else if(tempTableau[x][y] == 2)
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
-                else if(tempTableau[x][y] >= 3)
-                    bouton.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
-
-                rangee.addView(bouton , width / dimensionXTableau, height/dimensionYTableau);
+                else{
+                    Indice indice = new Indice(this, tempTableau[x][y]);
+                    rangee.addView(indice , width / dimensionXTableau, height/dimensionYTableau);
+                }
             }
             tableauDemineur.addView(rangee);
         }
