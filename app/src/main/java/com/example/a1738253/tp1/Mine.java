@@ -42,12 +42,12 @@ public class Mine extends BoutonDemineur{
     @Override
     public void InsererDrapeau(Button btn) {
         if (!estRevele){
-            btn.setText(" ");
+            btn.setBackgroundResource(R.color.Grey);
             aUnFlag = false;
             setEstDesarmer(false);
         }
         else {
-            btn.setText("D");
+            btn.setBackgroundResource(R.drawable.flag);
             aUnFlag = true;
             setEstDesarmer(true);
         }
