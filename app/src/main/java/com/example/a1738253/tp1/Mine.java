@@ -11,6 +11,7 @@ public class Mine extends BoutonDemineur{
     private int positionX;
     private int positionY;
     private boolean estDesarmer;
+    private boolean estRevele = false;
 
     public Mine(Context context, int x, int y)
     {
@@ -40,7 +41,7 @@ public class Mine extends BoutonDemineur{
     //Methods
     @Override
     public void InsererDrapeau(Button btn) {
-        if (btn.getText() == "D"){
+        if (!estRevele){
             btn.setText(" ");
             aUnFlag = false;
             setEstDesarmer(false);
@@ -55,8 +56,9 @@ public class Mine extends BoutonDemineur{
     @Override
     public void AfficherContenuBouton(Button btn) {
         if (!aUnFlag) {
-            btn.setText("M");
-            btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
+            btn.setBackgroundResource(R.drawable.mine);
+            estRevele = true;
+           // btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
         }
     }
 }
