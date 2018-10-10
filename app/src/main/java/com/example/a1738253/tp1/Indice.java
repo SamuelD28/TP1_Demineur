@@ -4,15 +4,31 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
-public class Indice extends android.support.v7.widget.AppCompatButton {
+public class Indice extends BoutonDemineur{
 
     private int nbMineAdjacente;
-    private  boolean aUnFlag = false;
     private  boolean estRevele = false;
 
     public Indice(Context context, int p_nbMineAdjacente) {
         super(context);
         nbMineAdjacente = p_nbMineAdjacente;
+    }
+
+    @Override
+    public void InsererDrapeau(Button btn) {
+        if (!estRevele) {
+            if (btn.getText() == "D") {
+                btn.setText(" ");
+                aUnFlag = false;
+            } else {
+                btn.setText("D");
+                aUnFlag = true;
+            }
+        }
+    }
+
+    @Override
+    public void AfficherContenuBouton(Button btn) {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,30 +48,5 @@ public class Indice extends android.support.v7.widget.AppCompatButton {
                 }
             }
         });
-
-        this.setOnLongClickListener(new OnLongClickListener() {
-
-            @Override
-            public boolean onLongClick(View view) {
-                Button btn = (Button) view;
-                boutonLongClick(btn);
-                return true;
-            }
-
-            private void boutonLongClick(Button btn) {
-
-                if (!estRevele) {
-                    if (btn.getText() == "D") {
-                        btn.setText(" ");
-                        aUnFlag = false;
-                    } else {
-                        btn.setText("D");
-                        aUnFlag = true;
-                    }
-                }
-            }
-        });
-
-
     }
 }

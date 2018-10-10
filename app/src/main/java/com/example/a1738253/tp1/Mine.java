@@ -6,57 +6,21 @@ import android.widget.Button;
 
 import java.util.Random;
 
-public class Mine extends android.support.v7.widget.AppCompatButton{
+public class Mine extends BoutonDemineur{
 
     private int positionX;
     private int positionY;
     private boolean estDesarmer;
-    private boolean aUnFlag;
 
     public Mine(Context context, int x, int y)
     {
         super(context);
         estDesarmer = false;
-        aUnFlag = false;
         positionX = x;
         positionY = y;
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Button btn = (Button)view;
-                if (!aUnFlag) {
-                    btn.setText("M");
-                    btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
-                }
-            }
-        });
-
-        this.setOnLongClickListener(new OnLongClickListener(){
-
-            @Override
-            public boolean onLongClick(View view) {
-                Button btn = (Button)view;
-                boutonLongClick(btn);
-                return true;
-            }
-
-            private void boutonLongClick(Button btn){
-
-                if (btn.getText() == "D"){
-                    btn.setText(" ");
-                    aUnFlag = false;
-                    setEstDesarmer(false);
-                }
-                else {
-                    btn.setText("D");
-                    aUnFlag = true;
-                    setEstDesarmer(true);
-                }
-            }
-        });
     }
 
-
+    //Getter and Setter
     public boolean isEstDesarmer() {
         return estDesarmer;
     }
@@ -72,4 +36,30 @@ public class Mine extends android.support.v7.widget.AppCompatButton{
     public void setEstDesarmer(boolean estDesarmer) {
         this.estDesarmer = estDesarmer;
     }
+
+    //Methods
+    @Override
+    public void InsererDrapeau(Button btn) {
+        if (btn.getText() == "D"){
+            btn.setText(" ");
+            aUnFlag = false;
+            setEstDesarmer(false);
+        }
+        else {
+            btn.setText("D");
+            aUnFlag = true;
+            setEstDesarmer(true);
+        }
+    }
+
+    @Override
+    public void AfficherContenuBouton(Button btn) {
+        if (!aUnFlag) {
+            btn.setText("M");
+            btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
+        }
+    }
+
+
+
 }
