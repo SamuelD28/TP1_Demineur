@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,8 +26,8 @@ public class DemineurActivity extends AppCompatActivity {
     private CountDownTimer countdown;
 
     private Button boutonReset;
-    private Button boutonDimension;
-    private Button boutonNbMine;
+    private Spinner spinnerDimension;
+
     private Settings settings;
 
     @Override
@@ -33,11 +36,12 @@ public class DemineurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demineur);
 
         //A optimiser
-        boutonDimension = findViewById(R.id.btnDimension);
-        boutonNbMine = findViewById(R.id.btnMine);
-        settings = Settings.getInstance(Integer.parseInt(boutonDimension.getHint().toString()),
-                                        Integer.parseInt(boutonDimension.getHint().toString()),
-                                        Integer.parseInt(boutonNbMine.getHint().toString()));
+        spinnerDimension = findViewById(R.id.spinnerDimension);
+
+        settings = Settings.getInstance();
+        settings.setDimensionXTableau(9);
+        settings.setDimensionYTableau(9);
+        settings.setNombreMines(9);
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();

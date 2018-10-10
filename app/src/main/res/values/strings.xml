@@ -2,4 +2,19 @@
     <string name="name">Demineur</string>
     <string name="btn_Reset">Reset</string>
     <string name="game_over">Game Over</string>
+    <string-array name="dimension_array">
+        <item>8x8</item>
+        <item>9x9</item>
+        <item>10x10</item>
+        <item>11x11</item>
+        <item>12x12</item>
+    </string-array>
+    <string-array name="mine_array">
+        <item>5</item>
+        <item>7</item>
+        <item>9</item>
+        <item>12</item>
+        <item>15</item>
+    </string-array>
 </resources>
+

@@ -7,19 +7,14 @@ public class Settings
     private int dimensionYTableau;
     private int nombreMines;
 
-    private Settings(int dimensionXTableau, int dimensionYTableau, int nombreMines)
-    {
-        this.dimensionXTableau = dimensionXTableau;
-        this.dimensionYTableau = dimensionYTableau;
-        this.nombreMines = nombreMines;
-    }
+    private Settings(){}
 
     /**Property plus Method permettant dobtenir linstance**/
     private static Settings INSTANCE = null;
-    public static synchronized Settings getInstance(int dimensionXTableau , int dimensionYTableau, int nombreMines)
+    public static synchronized Settings getInstance()
     {
         if (INSTANCE == null)
-            INSTANCE = new Settings(dimensionXTableau, dimensionYTableau, nombreMines);
+            INSTANCE = new Settings();
 
         return INSTANCE;
     }
