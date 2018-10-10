@@ -24,6 +24,7 @@ public class DemineurActivity extends AppCompatActivity {
     private final int dimensionXTableau = 8;
     private final int dimensionYTableau = 8;
     private final int nombreMines = 7;
+    public static boolean isGameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class DemineurActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                textCountown.setText("Game Over");
+                isGameOver = true;
             }
         };
         boutonReset = findViewById(R.id.btnReset);
@@ -53,26 +54,6 @@ public class DemineurActivity extends AppCompatActivity {
         });
     }
 
-    private class onLongDrapeau implements View.OnLongClickListener{
-        private Button mBouton;
-        public onLongDrapeau(Button bouton){
-            mBouton = bouton;
-        }
-        @Override
-        public boolean onLongClick(View v) {
-            boutonLongClick();
-            return true;
-        }
-        private void boutonLongClick(){
-
-            if (mBouton.getText() == "D"){
-                mBouton.setText(" ");
-            }
-            else {
-                mBouton.setText("D");
-            }
-        }
-    }
 
     //On utilise cette methode pour pouvoir obtenir la hauteur et la largeur du tableau.
     @Override
@@ -87,6 +68,7 @@ public class DemineurActivity extends AppCompatActivity {
         countdown.start();
         tableauDemineur.removeAllViews();
         listeMine.clear();
+        isGameOver = false;
         GenererMines();
         GenererTableau(tableauDemineur.getHeight(), tableauDemineur.getWidth());
     }

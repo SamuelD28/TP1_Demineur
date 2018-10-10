@@ -1,4 +1,5 @@
 <resources>
     <string name="name">Demineur</string>
     <string name="btn_Reset">Reset</string>
+    <string name="game_over">Game Over</string>
 </resources>
