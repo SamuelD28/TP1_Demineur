@@ -80,6 +80,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/SteelBlue"
             android:drawableLeft="@android:drawable/ic_dialog_dialer"
+            android:hint="9"
             android:text="9 x 9"
             android:textColor="@android:color/white" />
 
@@ -90,6 +91,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/IndianRed"
             android:drawableLeft="@android:drawable/ic_menu_mylocation"
+            android:hint="5"
             android:text="5"
             android:textColor="@android:color/white" />
 

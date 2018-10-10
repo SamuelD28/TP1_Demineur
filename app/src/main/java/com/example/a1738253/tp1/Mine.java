@@ -1,10 +1,6 @@
 package com.example.a1738253.tp1;
-
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
-
-import java.util.Random;
 
 public class Mine extends BoutonDemineur{
 

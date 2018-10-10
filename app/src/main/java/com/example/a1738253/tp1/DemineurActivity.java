@@ -18,21 +18,31 @@ public class DemineurActivity extends AppCompatActivity {
 
     private TableLayout tableauDemineur;
     private ArrayList<Mine> listeMine;
-    private Button boutonReset;
+
     private TextView textCountown;
     private CountDownTimer countdown;
-    private final int dimensionXTableau = 8;
-    private final int dimensionYTableau = 8;
-    private final int nombreMines = 7;
+
+    private Button boutonReset;
+    private Button boutonDimension;
+    private Button boutonNbMine;
+    private Settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demineur);
 
+        //A optimiser
+        boutonDimension = findViewById(R.id.btnDimension);
+        boutonNbMine = findViewById(R.id.btnMine);
+        settings = Settings.getInstance(Integer.parseInt(boutonDimension.getHint().toString()),
+                                        Integer.parseInt(boutonDimension.getHint().toString()),
+                                        Integer.parseInt(boutonNbMine.getHint().toString()));
+
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
         textCountown = findViewById(R.id.textCountdown);
+
         countdown = new CountDownTimer(200000, 1000){
             @Override
             public void onTick(long l) {
@@ -44,6 +54,7 @@ public class DemineurActivity extends AppCompatActivity {
                 textCountown.setText(R.string.game_over);
             }
         };
+
         boutonReset = findViewById(R.id.btnReset);
         boutonReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +83,10 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void GenererMines()
     {
-        for(int i =0 ; i < nombreMines; i++)
+        for(int i =0 ; i < settings.getNombreMines(); i++)
         {
-            int randomX = new Random().nextInt(dimensionXTableau - 2) +1 ;
-            int randomY = new Random().nextInt(dimensionXTableau - 2) +1 ;
+            int randomX = new Random().nextInt(settings.getDimensionXTableau() - 2) +1 ;
+            int randomY = new Random().nextInt(settings.getDimensionYTableau() - 2) +1 ;
 
 
             for(Mine mine : listeMine)
@@ -94,7 +105,7 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void GenererTableau(int height, int width)
     {
-        int[][] tempTableau = new int[dimensionXTableau + 2][dimensionYTableau + 2];
+        int[][] tempTableau = new int[settings.getDimensionXTableau() + 2][settings.getDimensionYTableau() + 2];
 
         for(Mine mine : listeMine)
         {
@@ -113,19 +124,19 @@ public class DemineurActivity extends AppCompatActivity {
             tempTableau[mineX][mineY - 1] =  tempTableau[mineX][mineY - 1] + 1;
         }
 
-        for (int y = 1; y <= dimensionYTableau; y++) {
+        for (int y = 1; y <= settings.getDimensionYTableau(); y++) {
             TableRow rangee = new TableRow(this);
 
 
-            for (int x = 1; x <= dimensionXTableau; x++) {
+            for (int x = 1; x <= settings.getDimensionXTableau(); x++) {
                 if(tempTableau[x][y] < 0)
                 {
                     Mine mine = new Mine(this, x , y);
-                    rangee.addView(mine , width / dimensionXTableau, height/dimensionYTableau);
+                    rangee.addView(mine , width / settings.getDimensionXTableau(), height/settings.getDimensionYTableau());
                 }
                 else{
                     Indice indice = new Indice(this, tempTableau[x][y]);
-                    rangee.addView(indice , width / dimensionXTableau, height/dimensionYTableau);
+                    rangee.addView(indice , width / settings.getDimensionXTableau(), height/settings.getDimensionYTableau());
                 }
             }
             tableauDemineur.addView(rangee);
