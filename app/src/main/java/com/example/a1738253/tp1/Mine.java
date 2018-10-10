@@ -24,9 +24,8 @@ public class Mine extends android.support.v7.widget.AppCompatButton{
             @Override
             public void onClick(View view) {
                 Button btn = (Button)view;
-                if (!aUnFlag || !DemineurActivity.isGameOver) {
+                if (!aUnFlag) {
                     btn.setText("M");
-                    DemineurActivity.isGameOver = true;
                     btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
                 }
             }

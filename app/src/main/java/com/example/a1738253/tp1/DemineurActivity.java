@@ -24,7 +24,6 @@ public class DemineurActivity extends AppCompatActivity {
     private final int dimensionXTableau = 8;
     private final int dimensionYTableau = 8;
     private final int nombreMines = 7;
-    public static boolean isGameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class DemineurActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                isGameOver = true;
+                textCountown.setText(R.string.game_over);
             }
         };
         boutonReset = findViewById(R.id.btnReset);
@@ -68,7 +67,6 @@ public class DemineurActivity extends AppCompatActivity {
         countdown.start();
         tableauDemineur.removeAllViews();
         listeMine.clear();
-        isGameOver = false;
         GenererMines();
         GenererTableau(tableauDemineur.getHeight(), tableauDemineur.getWidth());
     }
