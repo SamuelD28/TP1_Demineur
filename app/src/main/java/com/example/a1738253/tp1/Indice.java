@@ -29,24 +29,18 @@ public class Indice extends BoutonDemineur{
 
     @Override
     public void AfficherContenuBouton(Button btn) {
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Button btn = (Button) view;
-                if (!aUnFlag) {
-                    btn.setText(String.valueOf(nbMineAdjacente));
-                    if (nbMineAdjacente == 0)
-                        btn.setBackgroundTintList(getResources().getColorStateList(R.color.White));
-                    else if (nbMineAdjacente == 1)
-                        btn.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
-                    else if (nbMineAdjacente == 2)
-                        btn.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
-                    else if (nbMineAdjacente >= 3)
-                        btn.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
+        if (!aUnFlag) {
+            btn.setText(String.valueOf(nbMineAdjacente));
+            if (nbMineAdjacente == 0)
+                btn.setBackgroundTintList(getResources().getColorStateList(R.color.White));
+            else if (nbMineAdjacente == 1)
+                btn.setBackgroundTintList(getResources().getColorStateList(R.color.LightCoral));
+            else if (nbMineAdjacente == 2)
+                btn.setBackgroundTintList(getResources().getColorStateList(R.color.Salmon));
+            else if (nbMineAdjacente >= 3)
+                btn.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
-                    estRevele = true;
-                }
-            }
-        });
+            estRevele = true;
+        }
     }
 }

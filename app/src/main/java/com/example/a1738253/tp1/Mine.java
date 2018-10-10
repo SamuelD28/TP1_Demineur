@@ -59,7 +59,4 @@ public class Mine extends BoutonDemineur{
             btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
         }
     }
-
-
-
 }
