@@ -53,7 +53,6 @@ public class DemineurActivity extends AppCompatActivity {
         });
     }
 
-
     //On utilise cette methode pour pouvoir obtenir la hauteur et la largeur du tableau.
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
