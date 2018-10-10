@@ -17,11 +17,11 @@ public class Indice extends BoutonDemineur{
     @Override
     public void InsererDrapeau(Button btn) {
         if (!estRevele) {
-            if (btn.getText() == "D") {
-                btn.setText(" ");
+            if (aUnFlag) {
+                btn.setBackgroundResource(R.color.Grey);
                 aUnFlag = false;
             } else {
-                btn.setText("D");
+                btn.setBackgroundResource(R.drawable.flag);
                 aUnFlag = true;
             }
         }
