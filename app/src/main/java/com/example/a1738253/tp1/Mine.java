@@ -1,5 +1,6 @@
 package com.example.a1738253.tp1;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.Button;
 
 public class Mine extends BoutonDemineur{
@@ -43,7 +44,10 @@ public class Mine extends BoutonDemineur{
             setEstDesarmer(false);
         }
         else {
-            btn.setBackgroundResource(R.drawable.flag);
+            Drawable drawable = getResources().getDrawable(R.drawable.flag);
+            drawable.setBounds(1, 1, 1,1);
+
+            btn.setBackground(drawable);
             aUnFlag = true;
             setEstDesarmer(true);
         }
@@ -54,7 +58,6 @@ public class Mine extends BoutonDemineur{
         if (!aUnFlag) {
             btn.setBackgroundResource(R.drawable.mine);
             estRevele = true;
-           // btn.setBackgroundTintList(getResources().getColorStateList(R.color.Crimson));
         }
     }
 }

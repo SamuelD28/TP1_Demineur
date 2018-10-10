@@ -15,4 +15,5 @@
     <color name="LightBlue">#EDEDED</color>
     <color name="White">#ffffff</color>
     <color name="Grey">#E0E0E0</color>
+    <color name="DarkerGrey">#c6c6c6</color>
 </resources>
