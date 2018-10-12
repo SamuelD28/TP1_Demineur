@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/textCountdown"
-            android:layout_width="wrap_content"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"

@@ -20,10 +20,10 @@ import java.util.Timer;
 public class DemineurActivity extends AppCompatActivity {
 
     private TableLayout tableauDemineur;
-    private ArrayList<Mine> listeMine;
+    public static ArrayList<Mine> listeMine;
 
-    private TextView textCountown;
-    private CountDownTimer countdown;
+    private static TextView textCountown;
+    private static CountDownTimer countdown;
 
     private Button boutonReset;
     private Spinner spinnerDimension;
@@ -55,8 +55,7 @@ public class DemineurActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                textCountown.setText(R.string.game_over);
-            }
+                textCountown.setText(R.string.game_over);           }
         };
 
         boutonReset = findViewById(R.id.btnReset);
@@ -105,6 +104,13 @@ public class DemineurActivity extends AppCompatActivity {
             Mine mine = new Mine(this, randomX, randomY);
             listeMine.add(mine);
         }
+    }
+
+    //Cette méthode est appelée lorsque le temps esr écoulé ou que le joueur active une mine
+    public static void GameOver()
+    {
+        countdown.onFinish();
+        countdown.cancel();
     }
 
     private void GenererTableau(int height, int width)

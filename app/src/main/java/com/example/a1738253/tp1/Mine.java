@@ -39,16 +39,19 @@ public class Mine extends BoutonDemineur{
     //Methods
     @Override
     public void InsererDrapeau(Button btn) {
-        if (!estRevele){
-            btn.setBackgroundResource(R.color.Grey);
-            aUnFlag = false;
-            setEstDesarmer(false);
-        }
-        else {
-            btn.setBackgroundResource(R.drawable.mine);
-            btn.setBackgroundColor(getResources().getColor(R.color.Crimson));
-            aUnFlag = true;
-            setEstDesarmer(true);
+
+        if (!estRevele) {
+            if (aUnFlag) {
+                btn.setBackgroundResource(R.color.Grey);
+                RemettreMine(btn.getContext());
+                setEstDesarmer(false);
+                aUnFlag = false;
+            } else {
+                btn.setBackgroundResource(R.drawable.flag);
+                setEstDesarmer(true);
+                 EnleverMine();
+                aUnFlag = true;
+            }
         }
     }
 
@@ -57,6 +60,21 @@ public class Mine extends BoutonDemineur{
         if (!aUnFlag) {
             btn.setBackgroundResource(R.drawable.mine);
             estRevele = true;
+            DemineurActivity.GameOver();
+        }
+    }
+
+    private void RemettreMine(Context context)
+    {
+        Mine mine = new Mine(context, positionX, positionY);
+        DemineurActivity.listeMine.add(mine);
+    }
+
+    private void EnleverMine()
+    {
+        if (DemineurActivity.listeMine.size() != 0)
+        {
+            DemineurActivity.listeMine.remove(DemineurActivity.listeMine.size() - 1);
         }
     }
 }
