@@ -19,7 +19,7 @@ import java.util.Timer;
 
 public class DemineurActivity extends AppCompatActivity {
 
-    private TableLayout tableauDemineur;
+    private static TableLayout tableauDemineur;
     public static ArrayList<Mine> listeMine;
 
     private static TextView textCountown;
@@ -29,6 +29,8 @@ public class DemineurActivity extends AppCompatActivity {
     private Spinner spinnerDimension;
 
     private Settings settings;
+
+    public static int nbCasesReveles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class DemineurActivity extends AppCompatActivity {
         settings = Settings.getInstance();
         settings.setDimensionXTableau(9);
         settings.setDimensionYTableau(9);
-        settings.setNombreMines(9);
+        settings.setNombreMines(1);
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
@@ -107,11 +109,47 @@ public class DemineurActivity extends AppCompatActivity {
         }
     }
 
+    private static void DisableToutBouton()
+    {
+        for(int i = 0; i < tableauDemineur.getChildCount(); i++) {
+            View view = tableauDemineur.getChildAt(i);
+            if (view instanceof TableRow) {
+                TableRow tr = (TableRow)view;
+                for(int j = 0 ; j < tr.getChildCount(); j++)
+                {
+                    Button btn = (Button)tr.getChildAt(j);
+                    btn.setEnabled(false);
+                }
+            }
+        }
+    }
+
+    public static void JeuFinit()
+    {
+        for(Mine mine : listeMine)
+        {
+            if (!mine.isEstDesarmer())
+            {
+                break;
+            }
+            else {
+                if (nbCasesReveles == (81 - listeMine.size()))
+                {
+                    countdown.cancel();
+                    textCountown.setText(R.string.victory);
+                }
+            }
+        }
+    }
+
     //Cette méthode est appelée lorsque le temps esr écoulé ou que le joueur active une mine
     public static void GameOver()
     {
         countdown.onFinish();
         countdown.cancel();
+        DisableToutBouton();
+
+
     }
 
 

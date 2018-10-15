@@ -2,6 +2,7 @@
     <string name="name">Demineur</string>
     <string name="btn_Reset">Reset</string>
     <string name="game_over">Game Over</string>
+    <string name="victory">Victoire!</string>
     <string-array name="dimension_array">
         <item>8x8</item>
         <item>9x9</item>

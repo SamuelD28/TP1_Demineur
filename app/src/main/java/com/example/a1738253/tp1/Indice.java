@@ -1,7 +1,6 @@
 package com.example.a1738253.tp1;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
 
 public class Indice extends BoutonDemineur{
@@ -41,6 +40,12 @@ public class Indice extends BoutonDemineur{
                 btn.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
             estRevele = true;
+            if (!estRevele)
+            {
+                DemineurActivity.nbCasesReveles++;
+            }
+
+            DemineurActivity.JeuFinit();
         }
     }
 }
