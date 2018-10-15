@@ -1,12 +1,9 @@
 package com.example.a1738253.tp1;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -15,7 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 
 public class DemineurActivity extends AppCompatActivity {
 
@@ -83,6 +79,7 @@ public class DemineurActivity extends AppCompatActivity {
         listeMine.clear();
         GenererMines();
         GenererTableau(tableauDemineur.getHeight(), tableauDemineur.getWidth());
+        DisableToutBouton();
     }
 
     private void GenererMines()
@@ -104,6 +101,22 @@ public class DemineurActivity extends AppCompatActivity {
 
             Mine mine = new Mine(this, randomX, randomY);
             listeMine.add(mine);
+        }
+    }
+
+
+    private void DisableToutBouton()
+    {
+        for(int i = 0; i < tableauDemineur.getChildCount(); i++) {
+            View view = tableauDemineur.getChildAt(i);
+            if (view instanceof TableRow) {
+                TableRow tr = (TableRow)view;
+                for(int j = 0 ; j < tr.getChildCount(); j++)
+                {
+                    Button btn = (Button)tr.getChildAt(j);
+                    btn.setEnabled(false);
+                }
+            }
         }
     }
 
