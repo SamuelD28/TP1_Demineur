@@ -55,7 +55,8 @@ public class DemineurActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                textCountown.setText(R.string.game_over);           }
+                textCountown.setText(R.string.game_over);
+            }
         };
 
         boutonReset = findViewById(R.id.btnReset);
@@ -111,6 +112,22 @@ public class DemineurActivity extends AppCompatActivity {
     {
         countdown.onFinish();
         countdown.cancel();
+    }
+
+
+    private void DisableToutBouton()
+    {
+        for(int i = 0; i < tableauDemineur.getChildCount(); i++) {
+            View view = tableauDemineur.getChildAt(i);
+            if (view instanceof TableRow) {
+                TableRow tr = (TableRow)view;
+                for(int j = 0 ; j < tr.getChildCount(); j++)
+                {
+                    Button btn = (Button)tr.getChildAt(j);
+                    btn.setEnabled(false);
+                }
+            }
+        }
     }
 
     private void GenererTableau(int height, int width)
