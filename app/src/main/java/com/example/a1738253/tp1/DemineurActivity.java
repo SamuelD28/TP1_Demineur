@@ -30,6 +30,7 @@ public class DemineurActivity extends AppCompatActivity {
 
     private Settings settings;
 
+    public static int nbCasesReveles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class DemineurActivity extends AppCompatActivity {
         settings = Settings.getInstance();
         settings.setDimensionXTableau(9);
         settings.setDimensionYTableau(9);
-        settings.setNombreMines(1); //À 1 pour les tests seulement
+        settings.setNombreMines(1);
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
@@ -123,6 +124,24 @@ public class DemineurActivity extends AppCompatActivity {
         }
     }
 
+    public static void JeuFinit()
+    {
+        for(Mine mine : listeMine)
+        {
+            if (!mine.isEstDesarmer())
+            {
+                break;
+            }
+            else {
+                if (nbCasesReveles == (81 - listeMine.size()))
+                {
+                    countdown.cancel();
+                    textCountown.setText(R.string.victory);
+                }
+            }
+        }
+    }
+
     //Cette méthode est appelée lorsque le temps esr écoulé ou que le joueur active une mine
     public static void GameOver()
     {
@@ -131,6 +150,7 @@ public class DemineurActivity extends AppCompatActivity {
         DisableToutBouton();
     }
 
+    }
 
     private void GenererTableau(int height, int width)
     {
