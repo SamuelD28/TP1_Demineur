@@ -49,9 +49,9 @@ public class Mine extends BoutonDemineur{
             } else {
                 btn.setBackgroundResource(R.drawable.flag);
                 setEstDesarmer(true);
-                 EnleverMine();
-                 DemineurActivity.JeuFinit();
+                EnleverMine();
                 aUnFlag = true;
+                DemineurActivity.Victoire();
             }
         }
     }
@@ -64,6 +64,7 @@ public class Mine extends BoutonDemineur{
             DemineurActivity.GameOver();
         }
     }
+
 
     private void RemettreMine(Context context)
     {

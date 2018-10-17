@@ -8,6 +8,9 @@ import android.widget.Button;
 public abstract class BoutonDemineur extends android.support.v7.widget.AppCompatButton{
 
     public boolean aUnFlag;
+    public boolean estRevele;
+    public boolean minesToutesDesarmees;
+    public int nbCasesRestantes = 71;
 
     public BoutonDemineur(Context context)
     {
@@ -35,10 +38,13 @@ public abstract class BoutonDemineur extends android.support.v7.widget.AppCompat
                 return true;
             }
         });
+
     }
 
     //Abstract Method
     public abstract void InsererDrapeau(Button btn);
 
     public abstract void AfficherContenuBouton(Button btn);
+
+
 }
