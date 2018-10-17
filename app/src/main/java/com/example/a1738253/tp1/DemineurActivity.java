@@ -148,24 +148,6 @@ public class DemineurActivity extends AppCompatActivity {
         countdown.onFinish();
         countdown.cancel();
         DisableToutBouton();
-
-
-    }
-
-
-    private void DisableToutBouton()
-    {
-        for(int i = 0; i < tableauDemineur.getChildCount(); i++) {
-            View view = tableauDemineur.getChildAt(i);
-            if (view instanceof TableRow) {
-                TableRow tr = (TableRow)view;
-                for(int j = 0 ; j < tr.getChildCount(); j++)
-                {
-                    Button btn = (Button)tr.getChildAt(j);
-                    btn.setEnabled(false);
-                }
-            }
-        }
     }
 
     private void GenererTableau(int height, int width)
@@ -177,7 +159,6 @@ public class DemineurActivity extends AppCompatActivity {
             int mineX = mine.getPositionX();
             int mineY = mine.getPositionY();
             tempTableau[mineX][mineY] = -1000;
-
 
             tempTableau[mineX+ 1][mineY] =  tempTableau[mineX+ 1][mineY] + 1;
             tempTableau[mineX + 1][mineY + 1] = tempTableau[mineX + 1][mineY + 1] + 1;
