@@ -6,7 +6,6 @@ import android.widget.Button;
 public class Indice extends BoutonDemineur{
 
     private int nbMineAdjacente;
-    private  boolean estRevele = false;
 
     public Indice(Context context, int p_nbMineAdjacente) {
         super(context);
@@ -26,6 +25,7 @@ public class Indice extends BoutonDemineur{
         }
     }
 
+
     @Override
     public void AfficherContenuBouton(Button btn) {
         if (!aUnFlag) {
@@ -40,12 +40,7 @@ public class Indice extends BoutonDemineur{
                 btn.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
             estRevele = true;
-            if (!estRevele)
-            {
-                DemineurActivity.nbCasesReveles++;
-            }
-
-            DemineurActivity.JeuFinit();
+            DemineurActivity.Victoire();
         }
     }
 }

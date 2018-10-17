@@ -168,6 +168,8 @@ public class DemineurActivity extends AppCompatActivity {
         DisableToutBouton();
     }
 
+    }
+
     private void GenererTableau(int height, int width)
     {
         int[][] tempTableau = new int[settings.getDimensionXTableau() + 2][settings.getDimensionYTableau() + 2];
@@ -177,6 +179,7 @@ public class DemineurActivity extends AppCompatActivity {
             int mineX = mine.getPositionX();
             int mineY = mine.getPositionY();
             tempTableau[mineX][mineY] = -1000;
+
 
             tempTableau[mineX+ 1][mineY] =  tempTableau[mineX+ 1][mineY] + 1;
             tempTableau[mineX + 1][mineY + 1] = tempTableau[mineX + 1][mineY + 1] + 1;
