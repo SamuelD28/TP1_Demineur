@@ -36,8 +36,7 @@
             android:id="@+id/nbFlagLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="TextView" />
+            android:layout_weight=".5" />
 
     </LinearLayout>
 
@@ -90,23 +89,31 @@
             android:background="@color/SteelBlue"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="7dp">
+            android:paddingLeft="3dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true" >
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
                 app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
-            <Spinner
-                android:id="@+id/spinnerDimension"
+            <EditText
+                android:id="@+id/dimensionTableau"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/dimension_array"
-                android:fadeScrollbars="true"
-                android:gravity="center_vertical" />
+                android:layout_weight="2"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:inputType="number"
+                android:selectAllOnFocus="false"
+                android:singleLine="false"
+                android:text="9"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -117,7 +124,9 @@
             android:background="@color/IndianRed"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="7dp">
+            android:paddingLeft="3dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true" >
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -128,14 +137,17 @@
                 android:cropToPadding="false"
                 app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
-            <Spinner
-                android:id="@+id/spinnerDimension2"
+            <EditText
+                android:id="@+id/nombreMine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/mine_array"
-                android:fadeScrollbars="true"
-                android:gravity="center_vertical" />
+                android:layout_weight="2"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:inputType="number"
+                android:text="10"
+                android:textAlignment="center" />
+
         </LinearLayout>
 
     </LinearLayout>

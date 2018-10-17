@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,34 +23,37 @@ public class DemineurActivity extends AppCompatActivity {
 
     private static TableLayout tableauDemineur;
     public static ArrayList<Mine> listeMine;
-
     private static TextView textCountown;
     private static CountDownTimer countdown;
-
-    private Button boutonReset;
-    private Spinner spinnerDimension;
-
     private Settings settings;
-
     public static int nbCasesReveles;
+    private Button boutonReset;
+    private EditText dimensionTableau;
+    private EditText nombreMines;
+
+    private final int dimensionParDefault = 9;
+    private final int nombreMineParDefault = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demineur);
 
-        //A optimiser
-        spinnerDimension = findViewById(R.id.spinnerDimension);
-
+        //Initialise les settings dans le singleton
         settings = Settings.getInstance();
-        settings.setDimensionXTableau(9);
-        settings.setDimensionYTableau(9);
-        settings.setNombreMines(1);
+        settings.setDimensionXTableau(dimensionParDefault);
+        settings.setDimensionYTableau(dimensionParDefault);
+        settings.setNombreMines(nombreMineParDefault);
+
+        //Recherche les textview associer au settings
+        dimensionTableau = findViewById(R.id.dimensionTableau);
+        nombreMines = findViewById(R.id.nombreMine);
 
         tableauDemineur = findViewById(R.id.tableauDemineur);
         listeMine = new ArrayList<>();
         textCountown = findViewById(R.id.textCountdown);
 
+        //Initialisation de la methode de countdown, non completer
         countdown = new CountDownTimer(200000, 1000){
             @Override
             public void onTick(long l) {
@@ -61,7 +66,10 @@ public class DemineurActivity extends AppCompatActivity {
             }
         };
 
+
         boutonReset = findViewById(R.id.btnReset);
+
+        //Methode pour recommencer l'execution de la partie
         boutonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +87,19 @@ public class DemineurActivity extends AppCompatActivity {
 
     private void DemarerPartie()
     {
+        //Vas regler les settings en fonction de ce que lutilisateur a mis dans les inputs
+        int dimensionInt = Integer.valueOf(dimensionTableau.getText().toString());
+        int nombreMineInt = Integer.valueOf(nombreMines.getText().toString());
+        settings.setDimensionXTableau(dimensionInt);
+        settings.setDimensionYTableau(dimensionInt);
+        settings.setNombreMines(nombreMineInt);
+
+        //On le cancel avant de la partir pour eviter que plusieurs countdown demare en meme temps
         countdown.cancel();
         countdown.start();
         tableauDemineur.removeAllViews();
         listeMine.clear();
+        //Genenre une nouvelle liste de mines
         GenererMines();
         GenererTableau(tableauDemineur.getHeight(), tableauDemineur.getWidth());
     }
@@ -97,6 +114,7 @@ public class DemineurActivity extends AppCompatActivity {
 
             for(Mine mine : listeMine)
             {
+                //Si une mine est deja place a lendroit aleatoir, on incremente sa postion de 1 en x et y.
                 if(mine.getPositionX() == randomX && mine.getPositionY() == randomY)
                 {
                     randomX++;
