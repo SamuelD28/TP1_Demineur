@@ -12,8 +12,8 @@
     <color name="LightSalmon">#FFA07A</color>
     <color name="DarkSeaGreen">#8FBC8B</color>
     <color name="SteelBlue">#4682B4</color>
-    <color name="LightBlue">#EDEDED</color>
+    <color name="LightBlue">#ededed</color>
     <color name="White">#ffffff</color>
-    <color name="Grey">#E0E0E0</color>
+    <color name="Grey">#e0e0e0</color>
     <color name="DarkerGrey">#c6c6c6</color>
 </resources>

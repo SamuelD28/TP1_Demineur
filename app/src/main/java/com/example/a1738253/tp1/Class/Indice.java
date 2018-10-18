@@ -1,9 +1,12 @@
-package com.example.a1738253.tp1;
+package com.example.a1738253.tp1.Class;
 
 import android.content.Context;
 import android.widget.Button;
 
-public class Indice extends BoutonDemineur{
+import com.example.a1738253.tp1.AbstractClass.BoutonDemineur;
+import com.example.a1738253.tp1.R;
+
+public class Indice extends BoutonDemineur {
 
     private int nbMineAdjacente;
 
@@ -13,22 +16,8 @@ public class Indice extends BoutonDemineur{
     }
 
     @Override
-    public void InsererDrapeau(Button btn) {
-        if (!estRevele) {
-            if (aUnFlag) {
-                btn.setBackgroundResource(R.color.Grey);
-                aUnFlag = false;
-            } else {
-                btn.setBackgroundResource(R.drawable.flag);
-                aUnFlag = true;
-            }
-        }
-    }
-
-
-    @Override
     public void AfficherContenuBouton(Button btn) {
-        if (!aUnFlag) {
+        if (!getaUnFlag()) {
             btn.setText(String.valueOf(nbMineAdjacente));
             if (nbMineAdjacente == 0)
                 btn.setBackgroundTintList(getResources().getColorStateList(R.color.White));
@@ -39,8 +28,13 @@ public class Indice extends BoutonDemineur{
             else if (nbMineAdjacente >= 3)
                 btn.setBackgroundTintList(getResources().getColorStateList(R.color.IndianRed));
 
-            estRevele = true;
-            DemineurActivity.Victoire();
+            setEstRevele(true);
         }
+    }
+
+    @Override
+    public void HandleFlagCommand(Button btn, int ressourceId) {
+        btn.setBackgroundResource(ressourceId);
+        setaUnFlag(!getaUnFlag());
     }
 }
